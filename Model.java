@@ -1,6 +1,8 @@
 /**
  * Created by PC-Dylan on 03/05/2016.
  */
+ //Je suis contributeur de ce projet :) !
+ 
 public class Model {
 
     final int taille_X = 1000;
