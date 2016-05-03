@@ -12,7 +12,7 @@ public class Model {
     private int score; // score du joueur actuel
     private int size; // taille actuelle du serpent
     private int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
-    private boolean pause; // booléen qui indique si le jeu est en pause ou non
+    private boolean pause;// booléen qui definit si la pause est en cours ou non
 
     private float temps; // temps de la partie en cours
 
@@ -52,8 +52,15 @@ public class Model {
     public void setTemps(float tps){
         if (tps>=0) this.temps=tps;
     }
-    
-    public void setPause(){}
+
+    public void setPause(){
+        if (pause==false){
+            pause=true;
+        }else if (pause==true){
+            pause=false;
+        }
+    }
+
 
     /*------------------les getters----------------------*/
 
