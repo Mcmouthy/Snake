@@ -1,16 +1,18 @@
 /**
  * Created by PC-Dylan on 03/05/2016.
  */
- //Je suis contributeur de ce projet :) !
- 
 public class Model {
 
-    final int taille_X = 1000;
-    final int taille_Y= 1000;
+    // rajouter une enumeration pour les etats des cases du tableau
+    public static enum Case{VIDE,MUR,SNACKS,TETE,CORPS}
+
+    final int taille_X = 40;
+    final int taille_Y= 40;
 
     private int position_X; // position des differents objets en X
     private int position_Y; // position des differents objets en Y
 
+    private Case[][] grille;
     private int score; // score du joueur actuel
     private int size; // taille actuelle du serpent
     private int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
@@ -22,6 +24,7 @@ public class Model {
         position_X=0;
         position_Y=0;
 
+        grille=new Case[taille_X][taille_Y];
         score=0;
         size=0;
         vitesse=100;
@@ -108,6 +111,16 @@ public class Model {
         position_Y=position_Y-vitesse;
     }
 
+    public void genereMur(Case[][] grille){
+        for (int i=0;i<taille_Y;i++) {
+            grille[0][i] = Case.MUR;
+            grille[taille_X - 1][i] = Case.MUR;
+        }
+        for (int i=0;i<taille_X;i++){
+            grille[i][0]=Case.MUR;
+            grille[i][taille_Y-1]=Case.MUR;
+        }
+    }
 
 
 
