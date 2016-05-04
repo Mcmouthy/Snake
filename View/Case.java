@@ -8,26 +8,20 @@ import java.awt.event.MouseListener;
 /**
  * Created by rydkey on 03/05/16.
  */
+
 public class Case extends JPanel{
 
     public Case() {
         setBackground(Color.BLACK);
-        setMinimumSize(new Dimension(800,800));
         addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-
-            }
+            public void mouseClicked(MouseEvent mouseEvent) {}
 
             @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-
-            }
+            public void mousePressed(MouseEvent mouseEvent) {}
 
             @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-
-            }
+            public void mouseReleased(MouseEvent mouseEvent) {}
 
             @Override
             public void mouseEntered(MouseEvent mouseEvent) {

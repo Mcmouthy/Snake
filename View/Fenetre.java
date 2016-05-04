@@ -1,5 +1,6 @@
 package View;
 
+import Model.Model;
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +9,7 @@ import java.awt.*;
  */
 public class Fenetre extends JFrame {
 
-    public Fenetre(){
+    public Fenetre(Model model){
 
         JMenuBar menuBar= new JMenuBar();
         JMenu Option = new JMenu("Options");
@@ -20,7 +21,7 @@ public class Fenetre extends JFrame {
 
         JPanel all = new JPanel();
 
-        Grille jeu = new Grille();
+        Grille jeu = new Grille(Model.x,Model.y);
 
         Sst sst = new Sst();
 

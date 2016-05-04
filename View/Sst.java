@@ -11,6 +11,7 @@ public class Sst extends JPanel {
     public Sst(){
         JPanel all = new JPanel(new GridLayout(3,1));
         all.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        all.setPreferredSize(new Dimension(200,200));
 
         JPanel Score = new JPanel();
         Score.setBorder(BorderFactory.createLineBorder(Color.WHITE));
