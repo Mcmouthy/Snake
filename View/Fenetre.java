@@ -1,6 +1,6 @@
 package View;
 
-import Model.Model;
+import Model.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,33 +9,47 @@ import java.awt.*;
  */
 public class Fenetre extends JFrame {
 
+    JMenuBar menuBar;
+    JMenu Option;
+    JMenuItem reset;
+    JMenuItem score;
+    Model model;
+
     public Fenetre(Model model){
 
-        JMenuBar menuBar= new JMenuBar();
-        JMenu Option = new JMenu("Options");
-        JMenuItem reset = new JMenuItem("Reset Game");
-        JMenuItem score = new JMenuItem("Score");
-        Option.add(reset);
-        Option.add(score);
-        menuBar.add(Option);
+        this.model= model;
+        initAttributs();
+        createJeu();
+        pack();
+        setTitle("Snake");
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    }
+
+    private void createJeu() {
         JPanel all = new JPanel();
-
-        Grille jeu = new Grille(Model.x,Model.y);
-
+        Grille jeu = new Grille(model.taille_X,model.taille_Y);
         Sst sst = new Sst();
-
         all.setBackground(Color.BLACK);
         all.add(jeu);
         all.add(sst);
 
+        Option.add(reset);
+        Option.add(score);
+        menuBar.add(Option);
+
         setJMenuBar(menuBar);
         setContentPane(all);
-        setVisible(true);
         setMinimumSize(new Dimension(800,800));
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        pack();
+    }
+
+    public void initAttributs(){
+        menuBar= new JMenuBar();
+        Option = new JMenu("Options");
+        reset = new JMenuItem("Reset Game");
+        score = new JMenuItem("Score");
     }
 }

@@ -1,5 +1,7 @@
 package View;
 
+import Model.Model;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -11,8 +13,12 @@ import java.awt.event.MouseListener;
 
 public class Case extends JPanel{
 
-    public Case() {
-        setBackground(Color.BLACK);
+    public Case(final int x,final int y) {
+        if (x==0 || x==39 || y==0 || y==39){
+            setBackground(Color.WHITE);
+        }else{
+            setBackground(Color.BLACK);
+        }
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {}
@@ -25,12 +31,16 @@ public class Case extends JPanel{
 
             @Override
             public void mouseEntered(MouseEvent mouseEvent) {
-                setBackground(Color.WHITE);
+                setBackground(Color.RED);
             }
 
             @Override
             public void mouseExited(MouseEvent mouseEvent) {
-                setBackground(Color.BLACK);
+                if (x==0 || x==39 || y==0 || y==39){
+                    setBackground(Color.WHITE);
+                }else{
+                    setBackground(Color.BLACK);
+                }
             }
         });
 
