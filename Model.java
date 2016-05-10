@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Created by PC-Dylan on 03/05/2016.
  */
@@ -6,25 +8,28 @@ public class Model {
     // rajouter une enumeration pour les etats des cases du tableau
     public static enum Case{VIDE,MUR,SNACKS,TETE,CORPS}
 
-    final int taille_X = 40;
-    final int taille_Y= 40;
+    static int taille_X;
+    static int taille_Y;
 
-    private int position_X; // position des differents objets en X
-    private int position_Y; // position des differents objets en Y
+    private static int position_X; // position des differents objets en X
+    private static int position_Y; // position des differents objets en Y
 
-    private Case[][] grille;
-    private int score; // score du joueur actuel
-    private int size; // taille actuelle du serpent
-    private int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
-    private boolean pause;// booléen qui definit si la pause est en cours ou non
+    private static Case[][] grille;
+    private static int score; // score du joueur actuel
+    private static int size; // taille actuelle du serpent
+    private static int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
+    private static boolean pause;// booléen qui definit si la pause est en cours ou non
 
-    private float temps; // temps de la partie en cours
+    private static float temps; // temps de la partie en cours
 
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
         position_Y=0;
 
+        taille_X=40;
+        taille_Y=40;
         grille=new Case[taille_X][taille_Y];
+
         score=0;
         size=0;
         vitesse=100;
@@ -119,6 +124,17 @@ public class Model {
         for (int i=0;i<taille_X;i++){
             grille[i][0]=Case.MUR;
             grille[i][taille_Y-1]=Case.MUR;
+        }
+    }
+
+    public void genereSnacks(Case[][] grille){
+        Random random=new Random();
+        int index_snacks_X= random.nextInt(taille_X);
+        int index_snackq_Y= random.nextInt(taille_Y);
+        if (grille[index_snacks_X][index_snackq_Y]!=Case.MUR){
+            grille[index_snacks_X][index_snackq_Y]=Case.SNACKS;
+        }else{
+            genereSnacks(grille);
         }
     }
 
