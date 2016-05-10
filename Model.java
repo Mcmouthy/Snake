@@ -1,3 +1,8 @@
+package Model;
+
+import View.Grille;
+import View.Sst;
+
 import java.util.Random;
 
 /**
@@ -7,14 +12,15 @@ public class Model {
 
     // rajouter une enumeration pour les etats des cases du tableau
     public static enum Case{VIDE,MUR,SNACKS,TETE,CORPS}
+    public Grille jeu;
+    public Sst sst;
 
-    static int taille_X;
-    static int taille_Y;
+    public static int taille_X;
+    public static int taille_Y;
 
     private static int position_X; // position des differents objets en X
     private static int position_Y; // position des differents objets en Y
 
-    private static Case[][] grille;
     private static int score; // score du joueur actuel
     private static int size; // taille actuelle du serpent
     private static int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
@@ -25,11 +31,10 @@ public class Model {
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
         position_Y=0;
-
         taille_X=40;
         taille_Y=40;
-        grille=new Case[taille_X][taille_Y];
-
+        jeu = new Grille(taille_X,taille_Y);
+        sst = new Sst();
         score=0;
         size=0;
         vitesse=100;
