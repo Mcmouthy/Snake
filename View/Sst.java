@@ -44,17 +44,17 @@ public class Sst extends JPanel {
         textSize.setFont(new Font("ArcadeClassic",1,20));
         textSize.setForeground(Color.WHITE);
 
-        printScore = new JLabel();
+        printScore = new JLabel("0");
         printScore.setHorizontalAlignment(SwingConstants.CENTER);
         printScore.setFont(new Font("ArcadeClassic",1,20));
         printScore.setForeground(Color.WHITE);
 
-        printTime = new JLabel();
+        printTime = new JLabel("0.00");
         printTime.setHorizontalAlignment(SwingConstants.CENTER);
         printTime.setFont(new Font("ArcadeClassic",1,20));
         printTime.setForeground(Color.WHITE);
 
-        printSize = new JLabel();
+        printSize = new JLabel("0");
         printSize.setHorizontalAlignment(SwingConstants.CENTER);
         printSize.setFont(new Font("ArcadeClassic",1,20));
         printSize.setForeground(Color.WHITE);
