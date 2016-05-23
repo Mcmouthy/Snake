@@ -1,8 +1,10 @@
 package View;
 
+import Control.ControlKey;
 import Model.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 /**
  * Created by rydkey on 03/05/16.
@@ -51,5 +53,9 @@ public class Fenetre extends JFrame {
         Option = new JMenu("Options");
         reset = new JMenuItem("Reset Game");
         score = new JMenuItem("Score");
+    }
+
+    public void setControlKey(KeyListener all) {
+        this.addKeyListener(all);
     }
 }
