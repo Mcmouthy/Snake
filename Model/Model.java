@@ -67,6 +67,7 @@ public class Model {
     public void setTemps(float tps){
         if (tps>=0) this.temps=tps;
     }
+    public boolean jouable(){return true;}
 
     public void setPause(){
         if (pause==false){
