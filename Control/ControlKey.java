@@ -4,62 +4,52 @@ import Model.*;
 
 import View.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class ControlKey implements ActionListener, KeyListener {
+public class ControlKey implements KeyEventDispatcher {
     Model model;
     Control control;
 
-    public ControlKey(Model model) {
+    public ControlKey(Model model, Control control) {
+        this.control = control;
         this.model = model;
         this.control.setControlKey(this);
     }
-
-    public void actionPerformed(ActionEvent e)
-    {
-
-    }
-
     @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.println("Touche appuyée");
-    }
+    public boolean dispatchKeyEvent(KeyEvent keyEvent) {
 
-    @Override
-    public void keyPressed(KeyEvent e) {
+        switch (keyEvent.getKeyCode()) {
 
-        switch (e.getKeyCode()) {
             case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
                 model.change_direction_droite();
-                System.out.println("Touche appuyée");
-                //model.platSnake();
+                System.out.println("A droite");
                 break;
+
             case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_Q:
                 model.change_direction_gauche();
-                System.out.println("Touche appuyée");
-                //model.platSnake();
+                System.out.println("A gauche");
                 break;
+
             case KeyEvent.VK_UP:
+            case KeyEvent.VK_Z:
                 model.change_direction_haut();
-                System.out.println("Touche appuyée");
-                //model.platSnake();
+                System.out.println("En haut");
                 break;
+
             case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
                 model.change_direction_bas();
-                System.out.println("Touche appuyée");
-                //model.platSnake();
+                System.out.println("En bas");
                 break;
         }
 
-
-    }
-
-
-    @Override
-    public void keyReleased(KeyEvent e) {
+        return false;
     }
 }

@@ -11,18 +11,24 @@ import java.util.EventListener;
 public class ControlGroup {
 
     private final Model model;
+
+    public Grille getGrille() {
+        return grille;
+    }
+
     private Grille grille;
     private ControlKey controlKey;
+    private Control control;
     protected Timer timer;
     //public ControlMenu controlMenu;
 
 
 
-    public ControlGroup(Model model) {
+    public ControlGroup(Model model, Control control) {
 
         this.model = model;
-
-        controlKey = new ControlKey(model);
+        this.control=control;
+        controlKey = new ControlKey(model,this.control);
         //controlMenu=new ControlMenu();
 
         timer = new Timer(150, new ActionListener() {
