@@ -1,9 +1,9 @@
 package View;
 
-import Control.ControlKey;
 import Model.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 /**
@@ -16,9 +16,13 @@ public class Fenetre extends JFrame {
     JMenuItem reset;
     JMenuItem score;
     Model model;
+    JPanel all;
+    Grille jeu;
+    Sst sst;
+    Serpent snake;
+    JPanel display;
 
     public Fenetre(Model model){
-
         this.model= model;
         initAttributs();
         createJeu();
@@ -30,9 +34,10 @@ public class Fenetre extends JFrame {
     }
 
     private void createJeu() {
-        JPanel all = new JPanel();
-        Grille jeu = new Grille(model.taille_X,model.taille_Y);
-        Sst sst = new Sst();
+        all = new JPanel();
+        jeu = new Grille(model.taille_X,model.taille_Y,this,model);
+        sst= new Sst();
+        snake= new Serpent();
         all.setBackground(Color.BLACK);
         all.add(jeu);
         all.add(sst);
@@ -56,6 +61,14 @@ public class Fenetre extends JFrame {
     }
 
     public void setControlKey(KeyListener all) {
-        this.addKeyListener(all);
+        addKeyListener(all);
+    }
+
+    public void setControlMenuScore(ActionListener all){
+        Option.addActionListener(all);
+    }
+
+    public void setControlMenuReset(ActionListener all){
+        reset.addActionListener(all);
     }
 }

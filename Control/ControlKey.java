@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 public class ControlKey implements KeyListener {
     Fenetre fenetre;
     Model model;
+    boolean enJeu;
 
     public ControlKey(Fenetre fenetre, Model model ) {
         this.fenetre = fenetre;
@@ -31,25 +32,30 @@ public class ControlKey implements KeyListener {
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
                 model.change_direction_droite();
+                testKey();
                 break;
 
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_Q:
                 model.change_direction_gauche();
+                testKey();
                 break;
 
             case KeyEvent.VK_UP:
             case KeyEvent.VK_Z:
                 model.change_direction_haut();
+                testKey();
                 break;
 
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
                 model.change_direction_bas();
+                testKey();
                 break;
 
             case KeyEvent.VK_ESCAPE:
                 model.setPause();
+                testKey();
                 break;
         }
     }
@@ -57,5 +63,14 @@ public class ControlKey implements KeyListener {
     @Override
     public void keyReleased(KeyEvent keyEvent) {
 
+    }
+
+    private void testKey() {
+        enJeu=model.getEnJeu();
+        if (enJeu==false){
+            model.gameStart();
+        }else{
+
+        }
     }
 }

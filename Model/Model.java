@@ -23,18 +23,18 @@ public class Model {
 
     private static int score; // score du joueur actuel
     private static int size; // taille actuelle du serpent
-    private static int vitesse; // vitesse de deplacement du serpent en nombre de case du tableau
+    private static int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
     private static boolean pause;// booléen qui definit si la pause est en cours ou non
+    private static boolean enJeu;
 
     private static float temps; // temps de la partie en cours
+    private static Random randomx,randomy;
 
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
         position_Y=0;
         taille_X=40;
         taille_Y=40;
-        jeu = new Grille(taille_X,taille_Y);
-        sst = new Sst();
         score=0;
         size=0;
         vitesse=100;
@@ -44,12 +44,12 @@ public class Model {
 
     /*------------------les setters----------------------*/
 
-    public void setPosition_X(int x){
-        if (x>=0)this.position_X=x;
+    public void setPosition_X(){
+        position_X=randomx.nextInt((taille_X-1)+1);
     }
 
-    public void setPosition_Y(int y){
-        if (y>=0) this.position_Y=y;
+    public void setPosition_Y(){
+        position_Y=randomy.nextInt((taille_Y-1)+1);
     }
 
     public void setScore(int score){
@@ -67,7 +67,9 @@ public class Model {
     public void setTemps(float tps){
         if (tps>=0) this.temps=tps;
     }
-    public boolean jouable(){return true;}
+    public void setJouable(boolean jeu){
+        enJeu=jeu;
+    }
 
     public void setPause(){
         if (pause==false){
@@ -104,6 +106,10 @@ public class Model {
         return this.temps;
     }
 
+    public boolean getEnJeu(){
+        return enJeu;
+    }
+
     /*-----------------les calculs----------------------*/
 
     public void change_direction_gauche(){
@@ -135,8 +141,8 @@ public class Model {
 
     public void genereSnacks(Case[][] grille){
         Random random=new Random();
-        int index_snacks_X= random.nextInt(taille_X);
-        int index_snackq_Y= random.nextInt(taille_Y);
+        int index_snacks_X= random.nextInt((taille_X-1)+1);
+        int index_snackq_Y= random.nextInt((taille_Y-1)+1);
         if (grille[index_snacks_X][index_snackq_Y]!=Case.MUR){
             grille[index_snacks_X][index_snackq_Y]=Case.SNACKS;
         }else{
@@ -144,11 +150,13 @@ public class Model {
         }
     }
 
-    /*-----------------Lecture du fichier de scores----------*/
+    /*------------------------ Lancer jeux ------------------------*/
 
-    public void lireScores() {}
-
-    /*-----------------Ecriture du fichier de scores----------*/
-
-    public void ecrireScores() {}
+    public void gameStart(){
+        setJouable(true);
+        randomx = new Random();
+        randomy = new Random();
+        setPosition_X();
+        setPosition_Y();
+    }
 }
