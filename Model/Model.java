@@ -23,7 +23,7 @@ public class Model {
 
     private static int score; // score du joueur actuel
     private static int size; // taille actuelle du serpent
-    private static int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
+    private static int vitesse; // vitesse de deplacement du serpent en nombre de case du tableau
     private static boolean pause;// booléen qui definit si la pause est en cours ou non
 
     private static float temps; // temps de la partie en cours
@@ -143,4 +143,12 @@ public class Model {
             genereSnacks(grille);
         }
     }
+
+    /*-----------------Lecture du fichier de scores----------*/
+
+    public void lireScores() {}
+
+    /*-----------------Ecriture du fichier de scores----------*/
+
+    public void ecrireScores() {}
 }
