@@ -17,6 +17,7 @@ public class Model {
 
     public static int taille_X;
     public static int taille_Y;
+    public boolean gamelaunched=false;
 
     private static int position_X; // position des differents objets en X
     private static int position_Y; // position des differents objets en Y

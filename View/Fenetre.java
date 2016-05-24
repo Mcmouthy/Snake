@@ -27,7 +27,7 @@ public class Fenetre extends JFrame {
         initAttributs();
         createJeu();
         pack();
-        setTitle("Snake");
+        setTitle("Snake - appuyez sur espace pour commencer");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 public class ControlKey implements KeyListener {
     Fenetre fenetre;
     Model model;
+    Grille grille;
     boolean enJeu;
 
     public ControlKey(Fenetre fenetre, Model model ) {
@@ -21,6 +22,11 @@ public class ControlKey implements KeyListener {
         this.model = model;
         fenetre.setControlKey(this);
     }
+    public void initgame() {
+        fenetre.setTitle("Snake");
+        model.gamelaunched = true;
+        grille = new Grille(40, 40, fenetre, model); }
+
 
     @Override
     public void keyTyped(KeyEvent keyEvent) {}
@@ -55,6 +61,11 @@ public class ControlKey implements KeyListener {
 
             case KeyEvent.VK_ESCAPE:
                 model.setPause();
+                testKey();
+                break;
+
+            case KeyEvent.VK_SPACE:
+                if(model.gamelaunched==false) { initgame(); }
                 testKey();
                 break;
         }
