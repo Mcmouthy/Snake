@@ -42,8 +42,10 @@ public class Model {
     private int[][] tabDir;
     private List<int[]> serpent;
     private List<int[]> pos_Snack;
-    protected Timer chrono;
-    private int[] tps;
+    public Timer timerSST;
+    public Timer timerJEU;
+    public int[] timeSST;
+    public int[] timeJEU;
     private boolean enJeu;
 
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
@@ -64,9 +66,12 @@ public class Model {
         nom="";
         serpent= new ArrayList<>();
         pos_Snack= new ArrayList<>();
-        chrono=new Timer();
-        tps=new int[3];
+        timerSST=new Timer();
+        timerJEU=new Timer();
+        timeSST=new int[3];
+        timeJEU=new int[3];
         enJeu=false;
+        initTimers();
     }
 
     /*------------------les setters----------------------*/
@@ -292,13 +297,26 @@ public class Model {
         for (int i=0;i<taille_X;i++){
             for (int j=0;j<taille_Y;j++){
                 if (i==0 || i==taille_X-1 || j==0 || j==taille_Y-1){
-                    grille[i][j]=1;
+                    grille[i][j]=MUR;
                 }else {
-                    grille[i][j]=0;
+                    grille[i][j]=VIDE;
                 }
             }
         }
     }
+
+    public void initTimers() {
+        for(int i=0;i<3;i++){
+            timeJEU[0]=0;
+            timeJEU[1]=0;
+            timeJEU[2]=0;
+            timeSST[0]=0;
+            timeSST[1]=0;
+            timeSST[2]=0;
+        }
+    }
+
+
 
 
 }
