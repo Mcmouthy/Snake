@@ -71,6 +71,7 @@ public class Model {
         timeSST=new int[3];
         timeJEU=new int[3];
         enJeu=false;
+        initGrille();
         initTimers();
     }
 
