@@ -25,7 +25,7 @@ public class Model {
     private static int score; // score du joueur actuel
     private static int size; // taille actuelle du serpent
     private static int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
-    private static boolean enJeu; //booleen qui
+    private static boolean enJeu; //booleen qui dit si la partie est en cours ou non
 
     private static float temps; // temps de la partie en cours
     private static Random randomx,randomy;
