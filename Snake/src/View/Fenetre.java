@@ -66,7 +66,7 @@ public class Fenetre extends JFrame {
     }
 
     public void setControlMenuScore(ActionListener all){
-        Option.addActionListener(all);
+        score.addActionListener(all);
     }
 
     public void setControlMenuReset(ActionListener all){
@@ -76,6 +76,8 @@ public class Fenetre extends JFrame {
     public void setControlSst (KeyListener all) {
         addKeyListener(all);
     }
-
+    public void afficheScore(){
+        JOptionPane.showMessageDialog(this,model.getAffichagedesmeilleurs(),"Meilleurs Scores",JOptionPane.INFORMATION_MESSAGE);
+    }
 
 }
