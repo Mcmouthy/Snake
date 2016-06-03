@@ -1,46 +1,52 @@
 package Model;
 
+import View.Case;
 import View.Grille;
 import View.Sst;
 
+import java.io.*;
 import java.util.Random;
 
 /**
  * Created by PC-Dylan on 03/05/2016.
  */
 public class Model {
-
-    // rajouter une enumeration pour les etats des cases du tableau
-    public static enum Case{VIDE,MUR,SNACKS,TETE,CORPS}
+    
     public Grille jeu;
     public Sst sst;
 
     public static int taille_X;
     public static int taille_Y;
-    public boolean gamelaunched=false;
 
     private static int position_X; // position des differents objets en X
     private static int position_Y; // position des differents objets en Y
 
+    private static Case[][] grille;
     private static int score; // score du joueur actuel
     private static int size; // taille actuelle du serpent
     private static int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
-    private static boolean pause;// booléen qui definit si la pause est en cours ou non
-    private static boolean enJeu;
+    private static boolean enJeu; //booleen qui
 
     private static float temps; // temps de la partie en cours
     private static Random randomx,randomy;
+    private static boolean record; // booleen qui indique si un record a ete battu
+    private static String[] tabScore;//tableau contenant des strings ayant pour valeur les scores
+    private static String nom; // nom du joueur actuel
 
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
         position_Y=0;
         taille_X=40;
         taille_Y=40;
+        grille=new Case[taille_X][taille_Y];
         score=0;
         size=0;
         vitesse=100;
-        pause=false;
         temps=0f;
+        record=false;
+        enJeu=false;
+        tabScore= new String[10];
+        nom="";
     }
 
     /*------------------les setters----------------------*/
@@ -72,11 +78,11 @@ public class Model {
         enJeu=jeu;
     }
 
-    public void setPause(){
-        if (pause==false){
-            pause=true;
-        }else if (pause==true){
-            pause=false;
+    public void setEnJeu(){
+        if (enJeu==false){
+            enJeu=true;
+        }else if (enJeu==true){
+            enJeu=false;
         }
     }
 
@@ -129,7 +135,7 @@ public class Model {
         position_Y=position_Y-vitesse;
     }
 
-    public void genereMur(Case[][] grille){
+   /* public void genereMur(Case[][] grille){
         for (int i=0;i<taille_Y;i++) {
             grille[0][i] = Case.MUR;
             grille[taille_X - 1][i] = Case.MUR;
@@ -149,8 +155,102 @@ public class Model {
         }else{
             genereSnacks(grille);
         }
+    }*/
+    /*-------------------------------------------------------------*/
+    /*--------------------gestion des scores-----------------------*/
+     public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
+         try {
+             BufferedReader record=new BufferedReader(new FileReader(new File("Record")));
+             String[] strtab=new String[10];
+             String buf;
+             for (int i=0;i<10;i++){
+                 buf=record.readLine();
+                 if (buf!=null) {
+                     strtab[i] = buf;
+                     tabScore[i]=strtab[i];
+                 }
+
+             }
+         } catch (FileNotFoundException e1) {
+             e1.printStackTrace();
+         } catch (IOException e1) {
+             e1.printStackTrace();
+         }
+     }
+
+    public boolean verifMeilleurScore(){ // methode qui verifie si il y a un score a changer
+        String[] strtab= new String[10];
+        try {
+            BufferedReader record = new BufferedReader(new FileReader(new File("Record")));
+            String buf;
+            for (int i = 0; i < 10; i++) {
+                buf = record.readLine();
+                if (buf != null) {
+                    strtab[i] = buf.split(" ")[1];
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (int i=0;i<10;i++){
+            if (score>Float.parseFloat(strtab[i])) {
+                record = true;
+            }
+        }
+        return record;
     }
 
+    public void actualiseMeilleurScore(){ //methode qui actualise le score dans le fichier Record
+        String[] strtab= new String[10];
+        String[] strnom= new String[10];
+        if(enJeu==false) {
+            try {
+                BufferedReader record = new BufferedReader(new FileReader(new File("Record")));
+                String buf;
+                for (int i = 0; i < 10; i++) {
+                    buf = record.readLine();
+                    if (buf != null) {
+                        strnom[i]= buf.split(" ")[0];
+                        strtab[i] = buf.split(" ")[1];
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            int index=0;
+            for (int i=0;i<strtab.length;i++){
+                if (score>Float.parseFloat(strtab[i])) index=i;
+            }
+
+            for ( int k=index;k<strtab.length;k++){
+                strnom[k+1]=strnom[k];
+                strtab[k+1]=strtab[k];
+            }
+            strnom[index]=nom;
+            strtab[index]=score+"";
+
+            try {
+                BufferedWriter rec= new BufferedWriter(new FileWriter(new File("Record")));
+                for (int i=0; i<10;i++){
+                    rec.write(strnom[i]+" "+strtab[i]);
+                    rec.newLine();
+                }
+                rec.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
+    /*-------------------------------------------------------------*/
     /*------------------------ Lancer jeux ------------------------*/
 
     public void gameStart(){
