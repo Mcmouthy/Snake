@@ -4,9 +4,6 @@ import Model.*;
 
 import View.*;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -15,18 +12,12 @@ public class ControlKey implements KeyListener {
     Fenetre fenetre;
     Model model;
     Grille grille;
-    boolean enJeu;
 
     public ControlKey(Fenetre fenetre, Model model ) {
         this.fenetre = fenetre;
         this.model = model;
         fenetre.setControlKey(this);
     }
-    public void initgame() {
-        fenetre.setTitle("Snake");
-        model.gamelaunched = true;
-        grille = new Grille(40, 40, fenetre, model); }
-
 
     @Override
     public void keyTyped(KeyEvent keyEvent) {}
@@ -37,25 +28,25 @@ public class ControlKey implements KeyListener {
 
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                System.out.println(""+ keyEvent + "KEY PRESSED: ");
+                model.change_direction(1,0);
                 testKey();
                 break;
 
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_Q:
-                model.change_direction_gauche();
+                model.change_direction(-1,0);
                 testKey();
                 break;
 
             case KeyEvent.VK_UP:
             case KeyEvent.VK_Z:
-                model.change_direction_haut();
+                model.change_direction(0,1);
                 testKey();
                 break;
 
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                model.change_direction_bas();
+                model.change_direction(0,-1);
                 testKey();
                 break;
 
@@ -72,8 +63,7 @@ public class ControlKey implements KeyListener {
     }
 
     private void testKey() {
-        enJeu=model.getEnJeu();
-        if (enJeu==false){
+        if (model.getEnPause()==true){
             model.gameStart();
         }else{
 

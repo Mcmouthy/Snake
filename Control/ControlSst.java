@@ -2,7 +2,6 @@ package Control;
 
 import Model.Model;
 import View.Fenetre;
-import View.Grille;
 import View.Sst;
 
 import java.awt.event.ActionEvent;
@@ -18,8 +17,6 @@ public class ControlSst implements KeyListener
 {
     Fenetre fenetre;
     Model model;
-    Grille grille;
-    boolean enJeu;
 
     public ControlSst(Fenetre fenetre, Model model)
     {
@@ -32,9 +29,7 @@ public class ControlSst implements KeyListener
 
     @Override
     public void keyTyped(KeyEvent keyEvent)
-    {
-
-    }
+    {}
 
     @Override
     public void keyPressed(KeyEvent keyEvent)
@@ -47,17 +42,20 @@ public class ControlSst implements KeyListener
 
     @Override
     public void keyReleased(KeyEvent keyEvent)
+    {}
+
+    private void testKey()
     {
-
-    }
-
-    private void testKey() {
-        if (model.getEnJeu()==false) {
+        if (model.getEnPause()==false)
+        {
             model.setEnJeu();
 
-            ActionListener timer_SST = new ActionListener() {
-                public void actionPerformed(ActionEvent e1) {
+            ActionListener timer_SST = new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e1)
+                {
                     model.timeSST[0]++;
+                    Sst.printScore.setText(model.getScore());
                     if (model.timeSST[0] == 1000) {
                         model.timeSST[0] = 0;
                         model.timeSST[1]++;
@@ -66,10 +64,10 @@ public class ControlSst implements KeyListener
                         model.timeSST[1] = 0;
                         model.timeSST[2]++;
                     }
-                    Sst.printTime.setText("" + model.timeSST[2] + ":" + model.timeSST[1] + ":" + model.timeSST[0]);/* rafraichir le label */
+
+                    Sst.printTime.setText("" + model.timeSST[2] + ":" + model.timeSST[1]);/* rafraichir le label */
                 }
             };
-            model.timer
         }
     }
 }
