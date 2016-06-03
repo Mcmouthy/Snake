@@ -11,7 +11,7 @@ import java.util.Random;
  * Created by PC-Dylan on 03/05/2016.
  */
 public class Model {
-    
+
     public Grille jeu;
     public Sst sst;
 
@@ -21,6 +21,8 @@ public class Model {
     private static int position_X; // position des differents objets en X
     private static int position_Y; // position des differents objets en Y
 
+
+
     private static Case[][] grille;
     private static int score; // score du joueur actuel
     private static int size; // taille actuelle du serpent
@@ -29,9 +31,12 @@ public class Model {
 
     private static float temps; // temps de la partie en cours
     private static Random randomx,randomy;
+
     private static boolean record; // booleen qui indique si un record a ete battu
     private static String[] tabScore;//tableau contenant des strings ayant pour valeur les scores
     private static String nom; // nom du joueur actuel
+    public long[] timeSST;
+    public long[] timeJEU;
 
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
@@ -135,48 +140,47 @@ public class Model {
         position_Y=position_Y-vitesse;
     }
 
-   /* public void genereMur(Case[][] grille){
-        for (int i=0;i<taille_Y;i++) {
-            grille[0][i] = Case.MUR;
-            grille[taille_X - 1][i] = Case.MUR;
-        }
-        for (int i=0;i<taille_X;i++){
-            grille[i][0]=Case.MUR;
-            grille[i][taille_Y-1]=Case.MUR;
-        }
-    }
-
-    public void genereSnacks(Case[][] grille){
-        Random random=new Random();
-        int index_snacks_X= random.nextInt((taille_X-1)+1);
-        int index_snackq_Y= random.nextInt((taille_Y-1)+1);
-        if (grille[index_snacks_X][index_snackq_Y]!=Case.MUR){
-            grille[index_snacks_X][index_snackq_Y]=Case.SNACKS;
-        }else{
-            genereSnacks(grille);
-        }
-    }*/
-    /*-------------------------------------------------------------*/
-    /*--------------------gestion des scores-----------------------*/
-     public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
-         try {
-             BufferedReader record=new BufferedReader(new FileReader(new File("Record")));
-             String[] strtab=new String[10];
-             String buf;
-             for (int i=0;i<10;i++){
-                 buf=record.readLine();
-                 if (buf!=null) {
-                     strtab[i] = buf;
-                     tabScore[i]=strtab[i];
-                 }
-
-             }
-         } catch (FileNotFoundException e1) {
-             e1.printStackTrace();
-         } catch (IOException e1) {
-             e1.printStackTrace();
+    /* public void genereMur(Case[][] grille){
+         for (int i=0;i<taille_Y;i++) {
+             grille[0][i] = Case.MUR;
+             grille[taille_X - 1][i] = Case.MUR;
+         }
+         for (int i=0;i<taille_X;i++){
+             grille[i][0]=Case.MUR;
+             grille[i][taille_Y-1]=Case.MUR;
          }
      }
+     public void genereSnacks(Case[][] grille){
+         Random random=new Random();
+         int index_snacks_X= random.nextInt((taille_X-1)+1);
+         int index_snackq_Y= random.nextInt((taille_Y-1)+1);
+         if (grille[index_snacks_X][index_snackq_Y]!=Case.MUR){
+             grille[index_snacks_X][index_snackq_Y]=Case.SNACKS;
+         }else{
+             genereSnacks(grille);
+         }
+     }*/
+    /*-------------------------------------------------------------*/
+    /*--------------------gestion des scores-----------------------*/
+    public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
+        try {
+            BufferedReader record=new BufferedReader(new FileReader(new File("Record")));
+            String[] strtab=new String[10];
+            String buf;
+            for (int i=0;i<10;i++){
+                buf=record.readLine();
+                if (buf!=null) {
+                    strtab[i] = buf;
+                    tabScore[i]=strtab[i];
+                }
+
+            }
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
 
     public boolean verifMeilleurScore(){ // methode qui verifie si il y a un score a changer
         String[] strtab= new String[10];
