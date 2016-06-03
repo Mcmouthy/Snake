@@ -37,7 +37,7 @@ public class ControlKey implements KeyListener {
 
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                model.change_direction_droite();
+                System.out.println(""+ keyEvent + "KEY PRESSED: ");
                 testKey();
                 break;
 
@@ -59,13 +59,8 @@ public class ControlKey implements KeyListener {
                 testKey();
                 break;
 
-            case KeyEvent.VK_ESCAPE:
-                model.setPause();
-                testKey();
-                break;
-
             case KeyEvent.VK_SPACE:
-                if(model.gamelaunched==false) { initgame(); }
+                model.setEnJeu();
                 testKey();
                 break;
         }
