@@ -21,8 +21,8 @@ public class ControlMenuScore implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        for (int i=0;i<tabScore.length;i++){
-            affichagedesmeilleurs+=(i+1)+"-"+tabScore[i]+"\n";
+        if (fenetre.score.equals(actionEvent.getSource())){
+            fenetre.afficheScore();
         }
     }
 
