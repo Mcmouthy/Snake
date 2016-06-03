@@ -10,7 +10,9 @@ public class Sst extends JPanel {
 
     private JPanel Score, Time, Size;
     private JLabel textScore, textTime,textSize;
-    private JLabel printScore, printTime,printSize;
+    public static JLabel printScore;
+    public static JLabel printTime;
+    public JLabel printSize;
 
 
     public Sst(){
