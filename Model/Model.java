@@ -5,13 +5,16 @@ import View.Grille;
 import View.Sst;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 
 /**
  * Created by PC-Dylan on 03/05/2016.
  */
 public class Model {
-
+    
     public Grille jeu;
     public Sst sst;
 
@@ -21,22 +24,22 @@ public class Model {
     private static int position_X; // position des differents objets en X
     private static int position_Y; // position des differents objets en Y
 
-
-
     private static Case[][] grille;
     private static int score; // score du joueur actuel
     private static int size; // taille actuelle du serpent
     private static int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
-    private static boolean enJeu; //booleen qui dit si la partie est en cours ou non
+    private static boolean pause; //booleen qui dit si la partie est en cours ou non
 
     private static float temps; // temps de la partie en cours
     private static Random randomx,randomy;
-
     private static boolean record; // booleen qui indique si un record a ete battu
     private static String[] tabScore;//tableau contenant des strings ayant pour valeur les scores
     private static String nom; // nom du joueur actuel
-    public long[] timeSST;
-    public long[] timeJEU;
+    private int[][] tabDir;
+    private List<int[]> serpent;
+    private List<int[]> pos_Snack;
+    protected Timer chrono;
+    private int[] tps;
 
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
@@ -49,9 +52,14 @@ public class Model {
         vitesse=100;
         temps=0f;
         record=false;
-        enJeu=false;
+        pause =false;
         tabScore= new String[10];
+        tabDir=new int[1][2];
         nom="";
+        serpent= new ArrayList<>();
+        pos_Snack= new ArrayList<>();
+        chrono=new Timer();
+        tps=new int[3];
     }
 
     /*------------------les setters----------------------*/
@@ -79,16 +87,9 @@ public class Model {
     public void setTemps(float tps){
         if (tps>=0) this.temps=tps;
     }
-    public void setJouable(boolean jeu){
-        enJeu=jeu;
-    }
 
     public void setEnJeu(){
-        if (enJeu==false){
-            enJeu=true;
-        }else if (enJeu==true){
-            enJeu=false;
-        }
+        pause = !pause;
     }
 
 
@@ -119,68 +120,62 @@ public class Model {
     }
 
     public boolean getEnJeu(){
-        return enJeu;
+        return pause;
+    }
+
+    public List<int[]> getSerpent() {
+        return serpent;
     }
 
     /*-----------------les calculs----------------------*/
 
-    public void change_direction_gauche(){
-        position_X=position_X-vitesse;
+    public void change_direction(int x, int y){
+        tabDir[0][0]=x;
+        tabDir[0][1]=y;
     }
 
-    public void change_direction_droite(){
-        position_X=position_X+vitesse;
-    }
-
-    public void change_direction_haut(){
-        position_Y=position_Y+vitesse;
-    }
-
-    public void change_direction_bas(){
-        position_Y=position_Y-vitesse;
-    }
-
-    /* public void genereMur(Case[][] grille){
-         for (int i=0;i<taille_Y;i++) {
-             grille[0][i] = Case.MUR;
-             grille[taille_X - 1][i] = Case.MUR;
-         }
-         for (int i=0;i<taille_X;i++){
-             grille[i][0]=Case.MUR;
-             grille[i][taille_Y-1]=Case.MUR;
-         }
-     }
-     public void genereSnacks(Case[][] grille){
-         Random random=new Random();
-         int index_snacks_X= random.nextInt((taille_X-1)+1);
-         int index_snackq_Y= random.nextInt((taille_Y-1)+1);
-         if (grille[index_snacks_X][index_snackq_Y]!=Case.MUR){
-             grille[index_snacks_X][index_snackq_Y]=Case.SNACKS;
-         }else{
-             genereSnacks(grille);
-         }
-     }*/
-    /*-------------------------------------------------------------*/
-    /*--------------------gestion des scores-----------------------*/
-    public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
-        try {
-            BufferedReader record=new BufferedReader(new FileReader(new File("Record")));
-            String[] strtab=new String[10];
-            String buf;
-            for (int i=0;i<10;i++){
-                buf=record.readLine();
-                if (buf!=null) {
-                    strtab[i] = buf;
-                    tabScore[i]=strtab[i];
-                }
-
-            }
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+   /* public void genereMur(Case[][] grille){
+        for (int i=0;i<taille_Y;i++) {
+            grille[0][i] = Case.MUR;
+            grille[taille_X - 1][i] = Case.MUR;
+        }
+        for (int i=0;i<taille_X;i++){
+            grille[i][0]=Case.MUR;
+            grille[i][taille_Y-1]=Case.MUR;
         }
     }
+
+    public void genereSnacks(Case[][] grille){
+        Random random=new Random();
+        int index_snacks_X= random.nextInt((taille_X-1)+1);
+        int index_snackq_Y= random.nextInt((taille_Y-1)+1);
+        if (grille[index_snacks_X][index_snackq_Y]!=Case.MUR){
+            grille[index_snacks_X][index_snackq_Y]=Case.SNACKS;
+        }else{
+            genereSnacks(grille);
+        }
+    }*/
+    /*-------------------------------------------------------------*/
+    /*--------------------gestion des scores-----------------------*/
+     public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
+         try {
+             BufferedReader record=new BufferedReader(new FileReader(new File("Record")));
+             String[] strtab=new String[10];
+             String buf;
+             for (int i=0;i<10;i++){
+                 buf=record.readLine();
+                 if (buf!=null) {
+                     strtab[i] = buf;
+                     tabScore[i]=strtab[i];
+                 }
+
+             }
+         } catch (FileNotFoundException e1) {
+             e1.printStackTrace();
+         } catch (IOException e1) {
+             e1.printStackTrace();
+         }
+     }
 
     public boolean verifMeilleurScore(){ // methode qui verifie si il y a un score a changer
         String[] strtab= new String[10];
@@ -209,7 +204,7 @@ public class Model {
     public void actualiseMeilleurScore(){ //methode qui actualise le score dans le fichier Record
         String[] strtab= new String[10];
         String[] strnom= new String[10];
-        if(enJeu==false) {
+        if(pause ==false) {
             try {
                 BufferedReader record = new BufferedReader(new FileReader(new File("Record")));
                 String buf;
@@ -251,6 +246,17 @@ public class Model {
         }
     }
 
+    public void addToSerpent(int x, int y){
+        serpent.add(new int[]{x,y});
+    }
+
+    public void mouvementSerpent(int x,int y){
+        for (int i=serpent.size()-1; i>0;i--){
+            serpent.set(i,serpent.get(i-1));
+        }
+        serpent.set(0,new int[]{x,y});
+    }
+
 
 
 
@@ -258,10 +264,15 @@ public class Model {
     /*------------------------ Lancer jeux ------------------------*/
 
     public void gameStart(){
-        setJouable(true);
+        initGrille();
         randomx = new Random();
         randomy = new Random();
         setPosition_X();
         setPosition_Y();
+    }
+
+    /**/
+    public void initGrille() {
+
     }
 }
