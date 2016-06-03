@@ -47,6 +47,7 @@ public class Model {
     public int[] timeSST;
     public int[] timeJEU;
     private boolean enJeu;
+    private String affichagedesmeilleurs;
 
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
@@ -71,8 +72,11 @@ public class Model {
         timeSST=new int[3];
         timeJEU=new int[3];
         enJeu=false;
+        affichagedesmeilleurs="";
         initGrille();
         initTimers();
+        initScore();
+        initAffichagemeilleures();
     }
 
     /*------------------les setters----------------------*/
@@ -148,7 +152,8 @@ public class Model {
     public static int[][] getGrille() {
         return grille;
     }
-
+    public String getAffichagedesmeilleurs(){return affichagedesmeilleurs;}
+    
     /*-----------------les calculs----------------------*/
 
     public void change_direction(int x, int y){
@@ -181,7 +186,7 @@ public class Model {
     /*--------------------gestion des scores-----------------------*/
      public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
          try {
-             BufferedReader record=new BufferedReader(new FileReader(new File("Record")));
+             BufferedReader record=new BufferedReader(new FileReader(new File("src/Record")));
              String[] strtab=new String[10];
              String buf;
              for (int i=0;i<10;i++){
@@ -202,7 +207,7 @@ public class Model {
     public boolean verifMeilleurScore(){ // methode qui verifie si il y a un score a changer
         String[] strtab= new String[10];
         try {
-            BufferedReader record = new BufferedReader(new FileReader(new File("Record")));
+            BufferedReader record = new BufferedReader(new FileReader(new File("src/Record")));
             String buf;
             for (int i = 0; i < 10; i++) {
                 buf = record.readLine();
@@ -228,7 +233,7 @@ public class Model {
         String[] strnom= new String[10];
         if(pause ==false) {
             try {
-                BufferedReader record = new BufferedReader(new FileReader(new File("Record")));
+                BufferedReader record = new BufferedReader(new FileReader(new File("src/Record")));
                 String buf;
                 for (int i = 0; i < 10; i++) {
                     buf = record.readLine();
@@ -256,7 +261,7 @@ public class Model {
             strtab[index]=score+"";
 
             try {
-                BufferedWriter rec= new BufferedWriter(new FileWriter(new File("Record")));
+                BufferedWriter rec= new BufferedWriter(new FileWriter(new File("src/Record")));
                 for (int i=0; i<10;i++){
                     rec.write(strnom[i]+" "+strtab[i]);
                     rec.newLine();
@@ -317,7 +322,11 @@ public class Model {
         }
     }
 
-
+    public void initAffichagemeilleures(){
+        for (int i=0;i<tabScore.length;i++){
+            affichagedesmeilleurs+=(i+1)+"-"+tabScore[i]+"\n";
+        }
+    }
 
 
 }
