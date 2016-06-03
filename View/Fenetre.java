@@ -1,5 +1,6 @@
 package View;
 
+import Control.ControlSst;
 import Model.*;
 import javax.swing.*;
 import java.awt.*;
@@ -71,4 +72,10 @@ public class Fenetre extends JFrame {
     public void setControlMenuReset(ActionListener all){
         reset.addActionListener(all);
     }
+
+    public void setControlSst (KeyListener all) {
+        addKeyListener(all);
+    }
+
+
 }
