@@ -35,7 +35,7 @@ public class Model {
     private static boolean pause; //booleen qui dit si la partie est en cours ou non
 
     private static float temps; // temps de la partie en cours
-    private static Random randomx,randomy;
+    private static Random random;
     private static boolean record; // booleen qui indique si un record a ete battu
     private static String[] tabScore;//tableau contenant des strings ayant pour valeur les scores
     private static String nom; // nom du joueur actuel
@@ -52,10 +52,8 @@ public class Model {
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
         position_Y=0;
-
         taille_X=40;
         taille_Y=40;
-        grille=new int[taille_X][taille_Y];
         score=0;
         size=0;
         vitesse=100;
@@ -73,6 +71,8 @@ public class Model {
         timeJEU=new int[3];
         enJeu=false;
         affichagedesmeilleurs="";
+        random=new Random();
+        grille=new int[taille_X][taille_Y];
         initGrille();
         initTimers();
         initScore();
