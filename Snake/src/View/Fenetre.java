@@ -12,16 +12,16 @@ import java.awt.event.KeyListener;
  */
 public class Fenetre extends JFrame {
 
-    JMenuBar menuBar;
-    JMenu Option;
-    JMenuItem reset;
-    JMenuItem score;
-    Model model;
-    JPanel all;
-    Grille jeu;
-    Sst sst;
-    Serpent snake;
-    JPanel display;
+    public JMenuBar menuBar;
+    public JMenu Option;
+    public JMenuItem reset;
+    public JMenuItem score;
+    public Model model;
+    public JPanel all;
+    public Grille jeu;
+    public Sst sst;
+    public Serpent snake;
+    public JPanel display;
 
     public Fenetre(Model model){
         this.model= model;
@@ -34,7 +34,6 @@ public class Fenetre extends JFrame {
         setMinimumSize(new Dimension(700,700));
         setResizable(false);
         setLocationRelativeTo(null);
-
     }
 
     public void createJeu() {
@@ -52,7 +51,7 @@ public class Fenetre extends JFrame {
 
         setJMenuBar(menuBar);
         setContentPane(all);
-        
+
     }
 
     public void initAttributs(){
@@ -77,8 +76,8 @@ public class Fenetre extends JFrame {
     public void setControlSst (KeyListener all) {
         addKeyListener(all);
     }
+
     public void afficheScore(){
         JOptionPane.showMessageDialog(this,model.getAffichagedesmeilleurs(),"Meilleurs Scores",JOptionPane.INFORMATION_MESSAGE);
     }
-
 }

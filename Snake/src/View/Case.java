@@ -1,17 +1,18 @@
 package View;
 
 
+import Model.Model;
+
 import javax.swing.*;
 import java.awt.*;
-import Model.*;
 
 /**
  * Created by rydkey on 03/05/16.
  */
 
 public class Case extends JPanel{
-    Model model=new Model();
-    
+    Model model= new Model();
+
     public Case(final int x,final int y) {
         if (model.getGrille(x,y)==model.VIDE){
             setBackground(Color.BLACK);

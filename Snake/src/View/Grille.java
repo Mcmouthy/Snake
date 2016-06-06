@@ -20,6 +20,7 @@ public class Grille extends JPanel{
                 fenetre.display.add(tab[i][j]);
             }
         }
+
         add(fenetre.display);
     }
 }

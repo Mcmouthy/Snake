@@ -15,6 +15,7 @@ public class Sst extends JPanel {
     public JLabel printSize;
 
 
+
     public Sst(){
         JPanel all = new JPanel(new GridLayout(3,1));
         all.setPreferredSize(new Dimension(200,200));
@@ -77,4 +78,5 @@ public class Sst extends JPanel {
     public void setPrintScore(String TextScore){
         printScore.setText(TextScore);
     }
+
 }
