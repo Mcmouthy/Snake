@@ -9,12 +9,21 @@ import java.awt.*;
  */
 
 public class Case extends JPanel{
-
+    Model model=new Model();
+    
     public Case(final int x,final int y) {
-        if (x==0 || x==39 || y==0 || y==39){
-            setBackground(Color.WHITE);
-        }else{
+        if (model.getGrille(x,y)==model.VIDE){
             setBackground(Color.BLACK);
+        }else if (model.getGrille(x,y)==model.MUR){
+            setBackground(Color.WHITE);
+        }else if (model.getGrille(x,y)==model.SNACK){
+            setBackground(Color.RED);
+        }else if (model.getGrille(x,y)==model.TETE){
+            setBackground(Color.BLUE);
+        }else if (model.getGrille(x,y)==model.CORPS){
+            setBackground(Color.GREEN);
+        }else if (model.getGrille(x,y)==model.QUEUE){
+            setBackground(Color.YELLOW);
         }
     }
 }
