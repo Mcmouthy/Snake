@@ -2,6 +2,7 @@ package Control;
 
 import Model.Model;
 import View.Fenetre;
+import View.Grille;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,10 +24,10 @@ public class ControlMenuReset implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
 
         if (fenetre.reset==actionEvent.getSource()){
-            model.initTimers();
-            model.setEnJeu();
+            fenetre.clip.stop();
             model.initGrille();
-            fenetre.createJeu();
+            fenetre.recommencer();
+
         }
     }
 }
