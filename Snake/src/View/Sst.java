@@ -31,17 +31,17 @@ public class Sst extends JPanel {
         Size.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         Size.setBackground(Color.BLACK);
 
-        textScore = new JLabel("Score");
+        textScore = new JLabel("Score  0");
         textScore.setHorizontalAlignment(SwingConstants.CENTER);
         textScore.setFont(new Font("ArcadeClassic",1,20));
         textScore.setForeground(Color.WHITE);
 
-        textTime = new JLabel("Time");
+        textTime = new JLabel("Time  0:0");
         textTime.setHorizontalAlignment(SwingConstants.CENTER);
         textTime.setFont(new Font("ArcadeClassic",1,20));
         textTime.setForeground(Color.WHITE);
 
-        textSize = new JLabel("Size");
+        textSize = new JLabel("Size  5");
         textSize.setHorizontalAlignment(SwingConstants.CENTER);
         textSize.setFont(new Font("ArcadeClassic",1,20));
         textSize.setForeground(Color.WHITE);
