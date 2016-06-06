@@ -37,7 +37,7 @@ public class Fenetre extends JFrame {
 
     }
 
-    private void createJeu() {
+    public void createJeu() {
         all = new JPanel();
         jeu = new Grille(model.taille_X,model.taille_Y,this,model);
         sst= new Sst();
