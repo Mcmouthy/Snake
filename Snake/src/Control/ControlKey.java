@@ -57,6 +57,19 @@ public class ControlKey implements KeyListener {
     @Override
     public void keyReleased(KeyEvent keyEvent) {
     }
+    
+    public void playSound() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/musicSnake.WAV").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            clip.loop(9999);
+        } catch(Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
 
     private void testKey() {
         if (model.getEnJeu()==true) {
