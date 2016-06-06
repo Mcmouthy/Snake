@@ -31,7 +31,7 @@ public class Model {
     private static boolean record; // booleen qui indique si un record a ete battu
     public static String[] tabScore;//tableau contenant des strings ayant pour valeur les scores
     private static String nom; // nom du joueur actuel
-    private int[][] tabDir;
+    private int[] tabDir;
     private List<int[]> serpent;
     private List<int[]> pos_Snack;
     public Timer timerSST;
@@ -53,11 +53,8 @@ public class Model {
         record=false;
         pause =false;
         tabScore= new String[10];
-        tabDir=new int[1][2];
-        tabDir[0][0]=-1;
-        tabDir[0][1]=0;
+        tabDir=new int[2];
         nom="";
-        serpent= new ArrayList<>();
         pos_Snack= new ArrayList<>();
         timerSST=new Timer();
         timerJEU=new Timer();
@@ -147,11 +144,13 @@ public class Model {
 
     public int getGrille(int i, int j){ return grille[i][j];}
 
+    public int[] getTabDir(){ return tabDir;}
+
     /*-----------------les calculs----------------------*/
 
     public void change_direction(int x, int y){
-        tabDir[0][0]=x;
-        tabDir[0][1]=y;
+        tabDir[0]=x;
+        tabDir[1]=y;
     }
 
     /*-------------------------------------------------------------*/
@@ -253,14 +252,14 @@ public class Model {
     }
 
     public void mouvementSerpent(){
-        grille[serpent.get(0)[0]+tabDir[0][0]][serpent.get(0)[1]+tabDir[0][1]]=TETE;
+        grille[serpent.get(0)[0]+tabDir[0]][serpent.get(0)[1]+tabDir[1]]=TETE;
         grille[serpent.get(0)[0]][serpent.get(0)[1]]=CORPS;
         grille[serpent.get(serpent.size()-2)[0]][serpent.get(serpent.size()-2)[1]]=QUEUE;
         grille[serpent.get(serpent.size()-1)[0]][serpent.get(serpent.size()-1)[1]]=VIDE;
         for (int i=serpent.size()-1; i>0;i--){
             serpent.set(i,serpent.get(i-1));
         }
-        serpent.set(0,new int[]{serpent.get(0)[0]+tabDir[0][0],serpent.get(0)[1]+tabDir[0][1]});
+        serpent.set(0,new int[]{serpent.get(0)[0]+tabDir[0],serpent.get(0)[1]+tabDir[1]});
     }
 
     /*-------------------------------------------------------------*/
@@ -276,12 +275,19 @@ public class Model {
                 }
             }
         }
-        placeSnack();
-        placeTete(17,19);
-        placeCorps(18,19);
-        placeCorps(19,19);
+        initSerpent();
+    }
+
+    public void initSerpent() {
+//        placeSnack();
+        tabDir[0]=-1;
+        tabDir[1]=0;
+        serpent= new ArrayList<>();
+        placeTete(19,19);
         placeCorps(20,19);
-        placeQueue(21,19);
+        placeCorps(21,19);
+        placeCorps(22,19);
+        placeQueue(23,19);
     }
 
     public void initTimers() {

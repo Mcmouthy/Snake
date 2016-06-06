@@ -1,15 +1,14 @@
 package View;
 
-import Model.*;
+import Model.Model;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by rydkey on 03/05/16.
@@ -27,23 +26,23 @@ public class Fenetre extends JFrame {
     public JPanel display;
     public Clip clip;
 
-    public Fenetre(Model model){
-        this.model= model;
+    public Fenetre(Model model) {
+        this.model = model;
         initAttributs();
         createJeu();
         pack();
         setTitle("Snake - appuyez sur entrée pour commencer");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(700,700));
+        setMinimumSize(new Dimension(700, 700));
         setResizable(false);
         setLocationRelativeTo(null);
     }
 
     public void createJeu() {
         all = new JPanel();
-        jeu = new Grille(model.taille_X,model.taille_Y,this,model);
-        sst= new Sst(model);
+        jeu = new Grille(model.taille_X, model.taille_Y, this, model);
+        sst = new Sst(model);
         all.setBackground(Color.BLACK);
         all.add(jeu);
         all.add(sst);
@@ -54,11 +53,22 @@ public class Fenetre extends JFrame {
 
         setJMenuBar(menuBar);
         setContentPane(all);
-
     }
 
-    public void initAttributs(){
-        menuBar= new JMenuBar();
+    public void setTitle(){
+        setTitle("Sneaky Snake");
+    }
+
+    public void setTitleEntre(){
+        setTitle("Sneaky Snake - Appuyez sur entré pour commencer");
+    }
+
+    public void setTitleSpace(){
+        setTitle("Sneaky Snake - Appuyez sur espace pour reprendre");
+    }
+
+    public void initAttributs() {
+        menuBar = new JMenuBar();
         Option = new JMenu("Options");
         reset = new JMenuItem("Reset Game");
         score = new JMenuItem("Score");
@@ -68,23 +78,23 @@ public class Fenetre extends JFrame {
         addKeyListener(all);
     }
 
-    public void setControlMenuScore(ActionListener all){
+    public void setControlMenuScore(ActionListener all) {
         score.addActionListener(all);
     }
 
-    public void setControlMenuReset(ActionListener all){
+    public void setControlMenuReset(ActionListener all) {
         reset.addActionListener(all);
     }
 
-    public void afficheScore(){
-        JOptionPane.showMessageDialog(this,model.getAffichagedesmeilleurs(),"Meilleurs Scores",JOptionPane.INFORMATION_MESSAGE);
+    public void afficheScore() {
+        JOptionPane.showMessageDialog(this, model.getAffichagedesmeilleurs(), "Meilleurs Scores", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void affichePause(){
-        JOptionPane.showMessageDialog(this,"Appuyez sur espace pour reprendre","Pause",JOptionPane.WARNING_MESSAGE);
+    public void affichePause() {
+        JOptionPane.showMessageDialog(this, "Appuyez sur espace pour reprendre", "Pause", JOptionPane.WARNING_MESSAGE);
     }
 
-    public void refresh(){
+    public void refresh() {
         all.remove(jeu);
         all.remove(sst);
         jeu=new Grille(model.taille_X,model.taille_Y,this,model);
@@ -93,28 +103,38 @@ public class Fenetre extends JFrame {
         all.add(sst);
         setContentPane(all);
     }
-    public void recommencer(){
+
+    public void recommencer() {
+        model.initTimers();
+        model.initSerpent();
         all.remove(jeu);
         all.remove(sst);
-        jeu=new Grille(model.taille_X,model.taille_Y,this,model);
-        sst=new Sst(model);
+        jeu = new Grille(model.taille_X, model.taille_Y, this, model);
+        sst = new Sst(model);
         all.add(jeu);
         all.add(sst);
-        playSound();
+        setTitleSpace();
         setContentPane(all);
     }
 
     public void playSound() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/musicSnake.WAV").getAbsoluteFile());
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-            clip.loop(9999);
+            try {
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("src/musicSnake.WAV"));
+                DataLine.Info info = new DataLine.Info(Clip.class, inputStream.getFormat());
+                clip = (Clip) AudioSystem.getLine(info);
+                clip.open(inputStream);
 
-        } catch(Exception ex) {
-            System.out.println("Error with playing sound.");
-            ex.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            } catch (UnsupportedAudioFileException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            clip.start();
+
+        } catch (Exception e) {
         }
     }
 }

@@ -28,29 +28,36 @@ public class ControlJeu implements KeyListener {
 
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                model.change_direction(0,1);
+                if(model.getTabDir()[1]!=-1){
+                    model.change_direction(0,1);
+                }
                 break;
 
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_Q:
-                model.change_direction(0,-1);
+                if(model.getTabDir()[1]!=1) {
+                    model.change_direction(0, -1);
+                }
                 break;
 
             case KeyEvent.VK_UP:
             case KeyEvent.VK_Z:
-                model.change_direction(-1,0);
-
+                if(model.getTabDir()[0]!=1) {
+                    model.change_direction(-1, 0);
+                }
                 break;
 
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                model.change_direction(1,0);
+                if(model.getTabDir()[0]!=-1) {
+                    model.change_direction(1,0);
+                }
                 break;
 
             case KeyEvent.VK_ENTER:
                 if (model.getEnJeu()==false) {
-                    fenetre.setTitle("Sneaky Snake");
-                    fenetre.playSound();
+                    fenetre.setTitle();
+//                    fenetre.playSound();
                     model.setEnJeu();
                     testKeyJeu();
                     testKeySst();
@@ -61,16 +68,16 @@ public class ControlJeu implements KeyListener {
             case KeyEvent.VK_SPACE:
                 if (model.getEnJeu()==true){
                     if (model.getPause()==false){
+//                        fenetre.clip.stop();
+                        fenetre.setTitleSpace();
                         model.setPause();
-                        fenetre.affichePause();
-                        fenetre.clip.stop();
                         stopTimeSst();
                         stopTimeJeu();
+                        fenetre.affichePause();
                     }else{
                         model.setPause();
-//                        long clipTime;
-//                        fenetre.clip.setMicrosecondPosition(clipTime);
-                        fenetre.clip.start();
+//                        fenetre.clip.start();
+                        fenetre.setTitle();
                         startTimeJeu();
                         startTimeSst();
                     }
@@ -84,13 +91,23 @@ public class ControlJeu implements KeyListener {
 
     }
 
-//    Control de SST
-
     private void testKeySst() {
         if (model.getEnJeu()==true) {
             if (model.getPause()==false){
                 startTimeSst();
             }
+        }
+    }
+
+    private void testKeyJeu() {
+        if (model.getEnJeu()==true) {
+            model.timerJEU.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    model.mouvementSerpent();
+                    fenetre.refresh();
+                }
+            },0,150);
         }
     }
 
@@ -115,28 +132,24 @@ public class ControlJeu implements KeyListener {
         },0,1);
     }
 
-    private void stopTimeSst() {
-        model.timerSST.cancel();
-        model.timerSST.purge();
-    }
 
-
-//    Controle du jeu
-
-
-    private void testKeyJeu() {
+    private void startTimeJeu() {
         if (model.getEnJeu()==true) {
+            model.timerJEU = new Timer();
             model.timerJEU.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     model.mouvementSerpent();
                     fenetre.refresh();
                 }
-            },0,100);
+            },0,150);
         }
     }
 
-    private void startTimeJeu() {
+
+    private void stopTimeSst() {
+        model.timerSST.cancel();
+        model.timerSST.purge();
     }
 
     private void stopTimeJeu() {
