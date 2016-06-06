@@ -47,7 +47,7 @@ public class Model {
         taille_X=40;
         taille_Y=40;
         score=0;
-        size=0;
+        size=5;
         vitesse=100;
         record=false;
         pause =false;
