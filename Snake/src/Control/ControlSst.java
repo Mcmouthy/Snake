@@ -36,7 +36,7 @@ public class ControlSst implements KeyListener
     public void keyPressed(KeyEvent keyEvent)
     {
         if (keyEvent.getKeyCode()==KeyEvent.VK_SPACE){
-            model.setPause();
+            model.setEnJeu();
             testKey();
         }
     }
@@ -63,7 +63,7 @@ public class ControlSst implements KeyListener
                             model.timeSST[2]++;
                         }
 
-                        Sst.printtime.setText("" + model.timeSST[2] + ":" + model.timeSST[1]);/* rafraichir le label */
+                        Sst.printTime.setText("" + model.timeSST[2] + ":" + model.timeSST[1]);/* rafraichir le label */
                         if (model.getEnJeu()==false){
                             model.timerSST.cancel();
                             model.timerSST.purge();

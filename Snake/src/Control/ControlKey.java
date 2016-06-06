@@ -63,12 +63,8 @@ public class ControlKey implements KeyListener {
     }
 
     private void testKey() {
-        if (model.getEnJeu()==true) {
-            if (model.getPause()==false){
-
-            }else{
-
-            }
+        if (model.getPause()==true){
+            model.gameStart();
         }else{
 
         }
