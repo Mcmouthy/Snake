@@ -2,6 +2,7 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import Model.*;
 
 /**
  * Created by rydkey on 03/05/16.
@@ -13,10 +14,12 @@ public class Sst extends JPanel {
     public static JLabel printScore;
     public static JLabel printTime;
     public JLabel printSize;
+    public Model model;
 
 
 
-    public Sst(){
+    public Sst(Model model){
+        this.model=model;
         JPanel all = new JPanel(new GridLayout(3,1));
         all.setPreferredSize(new Dimension(200,200));
 
@@ -32,17 +35,17 @@ public class Sst extends JPanel {
         Size.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         Size.setBackground(Color.BLACK);
 
-        textScore = new JLabel("Score  0");
+        textScore = new JLabel("Score");
         textScore.setHorizontalAlignment(SwingConstants.CENTER);
         textScore.setFont(new Font("ArcadeClassic",1,20));
         textScore.setForeground(Color.WHITE);
 
-        textTime = new JLabel("Time  0:0");
+        textTime = new JLabel("Time");
         textTime.setHorizontalAlignment(SwingConstants.CENTER);
         textTime.setFont(new Font("ArcadeClassic",1,20));
         textTime.setForeground(Color.WHITE);
 
-        textSize = new JLabel("Size  5");
+        textSize = new JLabel("Size");
         textSize.setHorizontalAlignment(SwingConstants.CENTER);
         textSize.setFont(new Font("ArcadeClassic",1,20));
         textSize.setForeground(Color.WHITE);
@@ -51,16 +54,19 @@ public class Sst extends JPanel {
         printScore.setHorizontalAlignment(SwingConstants.CENTER);
         printScore.setFont(new Font("ArcadeClassic",1,20));
         printScore.setForeground(Color.WHITE);
+        printScore.setText(""+model.getScore());
 
         printTime = new JLabel();
         printTime.setHorizontalAlignment(SwingConstants.CENTER);
         printTime.setFont(new Font("ArcadeClassic",1,20));
         printTime.setForeground(Color.WHITE);
+        printTime.setText(""+model.getTemps());
 
         printSize = new JLabel();
         printSize.setHorizontalAlignment(SwingConstants.CENTER);
         printSize.setFont(new Font("ArcadeClassic",1,20));
         printSize.setForeground(Color.WHITE);
+        printSize.setText(""+model.getSize());
 
         Score.add(textScore);
         Score.add(printScore);

@@ -1,8 +1,5 @@
 package View;
-
-
-import Model.Model;
-
+import Model.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,9 +8,10 @@ import java.awt.*;
  */
 
 public class Case extends JPanel{
-    Model model= new Model();
+    Model model;
 
-    public Case(final int x,final int y) {
+    public Case(final int x,final int y,Model model) {
+        this.model=model;
         if (model.getGrille(x,y)==model.VIDE){
             setBackground(Color.BLACK);
         }else if (model.getGrille(x,y)==model.MUR){

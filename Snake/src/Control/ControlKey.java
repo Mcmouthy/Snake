@@ -29,6 +29,7 @@ public class ControlKey implements KeyListener {
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
                 model.change_direction(1,0);
+
                 testKey();
                 break;
 

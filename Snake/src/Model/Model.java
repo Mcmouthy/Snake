@@ -1,9 +1,5 @@
 package Model;
 
-import View.Case;
-import View.Grille;
-import View.Sst;
-
 import java.io.*;
 import java.util.*;
 
@@ -80,11 +76,11 @@ public class Model {
     /*------------------les setters----------------------*/
 
     public void setPosition_X(){
-        position_X=random.nextInt((taille_X-1)+1);
+        position_X=random.nextInt((taille_X-2))+1;
     }
 
     public void setPosition_Y(){
-        position_Y=random.nextInt((taille_Y-1)+1);
+        position_Y=random.nextInt((taille_Y-2))+1;
     }
 
     public void setScore(int score){
@@ -122,8 +118,8 @@ public class Model {
         return this.position_Y;
     }
 
-    public String getScore(){
-        return String.valueOf(this.score);
+    public int getScore(){
+        return this.score;
     }
 
     public int getSize(){
@@ -259,6 +255,10 @@ public class Model {
         serpent.add(new int[]{x,y});
     }
 
+    public void addToPosSnack(int x,int y) {
+        pos_Snack.add(new int[]{x,y});
+    }
+
     public void mouvementSerpent(int x,int y){
         for (int i=serpent.size()-1; i>0;i--){
             serpent.set(i,serpent.get(i-1));
@@ -311,21 +311,26 @@ public class Model {
     }
 
     public void placeSnack(){
-        int i=random.nextInt(taille_X-2)+1;
-        int j=random.nextInt(taille_Y-2)+1;
-        setGrille(i,j,SNACK);
+        setPosition_X();
+        setPosition_Y();
+        addToPosSnack(position_X,position_Y);
+        setGrille(position_X,position_Y,SNACK);
     }
 
     public void placeTete(int x, int y){
         grille[x][y]=TETE;
+        addToSerpent(x,y);
     }
 
     public void placeCorps(int x, int y){
         grille[x][y]=CORPS;
+        addToSerpent(x,y);
     }
 
     public void placeQueue(int x, int y) {
         grille[x][y]=QUEUE;
+        addToSerpent(x,y);
     }
+
 
 }

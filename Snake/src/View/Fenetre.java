@@ -39,7 +39,7 @@ public class Fenetre extends JFrame {
     public void createJeu() {
         all = new JPanel();
         jeu = new Grille(model.taille_X,model.taille_Y,this,model);
-        sst= new Sst();
+        sst= new Sst(model);
         snake= new Serpent();
         all.setBackground(Color.BLACK);
         all.add(jeu);

@@ -53,7 +53,7 @@ public class ControlSst implements KeyListener
                     @Override
                     public void run() {
                         model.timeSST[0]++;
-                        Sst.printScore.setText(model.getScore());
+                        Sst.printScore.setText(""+model.getScore());
                         if (model.timeSST[0] == 1000) {
                             model.timeSST[0] = 0;
                             model.timeSST[1]++;
