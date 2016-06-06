@@ -110,6 +110,8 @@ public class Model {
     public void setEnJeu() {
        enJeu= !enJeu;
     }
+    
+    public void setGrille(int i,int j,int nbre){grille[i][j]=nbre;}
 
     /*------------------les getters----------------------*/
 
@@ -161,27 +163,6 @@ public class Model {
         tabDir[0][1]=y;
     }
 
-   /* public void genereMur(Case[][] grille){
-        for (int i=0;i<taille_Y;i++) {
-            grille[0][i] = Case.MUR;
-            grille[taille_X - 1][i] = Case.MUR;
-        }
-        for (int i=0;i<taille_X;i++){
-            grille[i][0]=Case.MUR;
-            grille[i][taille_Y-1]=Case.MUR;
-        }
-    }
-
-    public void genereSnacks(Case[][] grille){
-        Random random=new Random();
-        int index_snacks_X= random.nextInt((taille_X-1)+1);
-        int index_snackq_Y= random.nextInt((taille_Y-1)+1);
-        if (grille[index_snacks_X][index_snackq_Y]!=Case.MUR){
-            grille[index_snacks_X][index_snackq_Y]=Case.SNACKS;
-        }else{
-            genereSnacks(grille);
-        }
-    }*/
     /*-------------------------------------------------------------*/
     /*--------------------gestion des scores-----------------------*/
      public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
@@ -309,6 +290,12 @@ public class Model {
                 }
             }
         }
+        placeSnack();
+        placeTete(17,19);
+        placeCorps(18,19);
+        placeCorps(19,19);
+        placeCorps(20,19);
+        placeQueue(21,19);
     }
 
     public void initTimers() {
@@ -326,6 +313,23 @@ public class Model {
         for (int i=0;i<tabScore.length;i++){
             affichagedesmeilleurs+=(i+1)+"-"+tabScore[i]+"\n";
         }
+    }
+    public void placeSnack(){
+        int i=random.nextInt(taille_X-2)+1;
+        int j=random.nextInt(taille_Y-2)+1;
+        setGrille(i,j,SNACK);
+    }
+
+    public void placeTete(int x, int y){
+        grille[x][y]=TETE;
+    }
+
+    public void placeCorps(int x, int y){
+        grille[x][y]=CORPS;
+    }
+
+    public void placeQueue(int x, int y) {
+        grille[x][y]=QUEUE;
     }
 
 
