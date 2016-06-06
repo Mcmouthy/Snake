@@ -1,17 +1,5 @@
 /**
- * Created by Michael on 12/05/2016.
+ * Created by rydkey on 03/06/16.
  */
-import Control.*;
-import Model.*;
 public class Launcher {
-    public static void main (String[] args){
-
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-                Model model = new Model();
-                ControlGroup control = new ControlGroup(model);
-            }
-        });
-    }
 }

@@ -21,8 +21,10 @@ public class ControlMenuReset implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        
+
         if (fenetre.reset==actionEvent.getSource()){
+            model.initTimers();
+            model.setEnJeu();
             model.initGrille();
             fenetre.createJeu();
         }

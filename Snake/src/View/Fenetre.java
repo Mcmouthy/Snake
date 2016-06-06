@@ -20,7 +20,6 @@ public class Fenetre extends JFrame {
     public JPanel all;
     public Grille jeu;
     public Sst sst;
-    public Serpent snake;
     public JPanel display;
 
     public Fenetre(Model model){
@@ -28,7 +27,7 @@ public class Fenetre extends JFrame {
         initAttributs();
         createJeu();
         pack();
-        setTitle("Snake - appuyez sur espace pour commencer");
+        setTitle("Sneaky Snake - appuyez sur Entré pour commencer");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(700,700));
@@ -40,7 +39,6 @@ public class Fenetre extends JFrame {
         all = new JPanel();
         jeu = new Grille(model.taille_X,model.taille_Y,this,model);
         sst= new Sst(model);
-        snake= new Serpent();
         all.setBackground(Color.BLACK);
         all.add(jeu);
         all.add(sst);
@@ -79,5 +77,9 @@ public class Fenetre extends JFrame {
 
     public void afficheScore(){
         JOptionPane.showMessageDialog(this,model.getAffichagedesmeilleurs(),"Meilleurs Scores",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void affichePause(){
+        JOptionPane.showMessageDialog(this,"Appuyez sur espace pour reprendre","Pause",JOptionPane.WARNING_MESSAGE);
     }
 }

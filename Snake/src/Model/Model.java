@@ -27,7 +27,6 @@ public class Model {
     private static int vitesse; // vitesse de deplacementdu serpent en nombre de case du tableau
     private static boolean pause; //booleen qui dit si la partie est en cours ou non
 
-    private static float temps; // temps de la partie en cours
     private static Random random;
     private static boolean record; // booleen qui indique si un record a ete battu
     public static String[] tabScore;//tableau contenant des strings ayant pour valeur les scores
@@ -50,7 +49,6 @@ public class Model {
         score=0;
         size=0;
         vitesse=100;
-        temps=0f;
         record=false;
         pause =false;
         tabScore= new String[10];
@@ -95,14 +93,10 @@ public class Model {
         if (vitesse>=100) this.vitesse=vitesse;
     }
 
-    public void setTemps(float tps){
-        if (tps>=0) this.temps=tps;
-    }
-
     public void setPause(){pause = !pause;}
 
     public void setEnJeu() {
-       enJeu= !enJeu;
+        enJeu= !enJeu;
     }
 
     public void setGrille(int i,int j,int nbre){grille[i][j]=nbre;}
@@ -128,10 +122,6 @@ public class Model {
 
     public int getVitesse(){
         return this.vitesse;
-    }
-
-    public float getTemps(){
-        return this.temps;
     }
 
     public boolean getPause(){
@@ -163,24 +153,24 @@ public class Model {
 
     /*-------------------------------------------------------------*/
     /*--------------------gestion des scores-----------------------*/
-     public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
-         try {
-             BufferedReader record=new BufferedReader(new FileReader(new File("src/Record")));
-             String[] strtab=new String[10];
-             String buf;
-             for (int i=0;i<10;i++){
-                 buf=record.readLine();
-                 if (buf!=null) {
-                     tabScore[i]=buf;
-                 }
+    public void initScore(){ // methode qui initialise les valeurs des scores dans tabScore
+        try {
+            BufferedReader record=new BufferedReader(new FileReader(new File("src/Record")));
+            String[] strtab=new String[10];
+            String buf;
+            for (int i=0;i<10;i++){
+                buf=record.readLine();
+                if (buf!=null) {
+                    tabScore[i]=buf;
+                }
 
-             }
-         } catch (FileNotFoundException e1) {
-             e1.printStackTrace();
-         } catch (IOException e1) {
-             e1.printStackTrace();
-         }
-     }
+            }
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
 
     public boolean verifMeilleurScore(){ // methode qui verifie si il y a un score a changer
         String[] strtab= new String[10];

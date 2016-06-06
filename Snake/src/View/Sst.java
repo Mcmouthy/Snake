@@ -58,9 +58,9 @@ public class Sst extends JPanel {
 
         printTime = new JLabel();
         printTime.setHorizontalAlignment(SwingConstants.CENTER);
-        printTime.setFont(new Font("ArcadeClassic",1,20));
+        printTime.setFont(new Font("Arial",1,20));
         printTime.setForeground(Color.WHITE);
-        printTime.setText(""+model.getTemps());
+        printTime.setText("" + model.timeSST[2] + " : " + model.timeSST[1]);
 
         printSize = new JLabel();
         printSize.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,10 +79,6 @@ public class Sst extends JPanel {
         all.add(Time);
         all.add(Size);
         add(all);
-    }
-
-    public void setPrintScore(String TextScore){
-        printScore.setText(TextScore);
     }
 
 }

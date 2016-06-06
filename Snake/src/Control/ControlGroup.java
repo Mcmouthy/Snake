@@ -1,3 +1,4 @@
+
 package Control;
 
 import View.*;
@@ -14,4 +15,3 @@ public class ControlGroup {
         fenetre.setVisible(true);
     }
 }
-

@@ -6,12 +6,12 @@ import View.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.*;
 
 
 public class ControlKey implements KeyListener {
     Fenetre fenetre;
     Model model;
-    Grille grille;
 
     public ControlKey(Fenetre fenetre, Model model ) {
         this.fenetre = fenetre;
@@ -29,45 +29,51 @@ public class ControlKey implements KeyListener {
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
                 model.change_direction(1,0);
-
-                testKey();
                 break;
 
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_Q:
                 model.change_direction(-1,0);
-                testKey();
                 break;
 
             case KeyEvent.VK_UP:
             case KeyEvent.VK_Z:
                 model.change_direction(0,1);
-                testKey();
                 break;
 
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
                 model.change_direction(0,-1);
-                testKey();
+                break;
+
+            case KeyEvent.VK_ENTER:
                 break;
 
             case KeyEvent.VK_SPACE:
-                model.setEnJeu();
-                testKey();
                 break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-
     }
 
     private void testKey() {
-        if (model.getPause()==true){
-            model.gameStart();
-        }else{
-
+        if (model.getEnJeu()==true) {
+            model.timerSST.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (model.getPause()==true){
+                        model.timerSST.cancel();
+                        model.timerSST.purge();
+                    }
+                    if (model.getEnJeu()==false){
+                        model.timerSST.cancel();
+                        model.timerSST.purge();
+                        model.initTimers();
+                    }
+                }
+            },0,1);
         }
     }
 }
