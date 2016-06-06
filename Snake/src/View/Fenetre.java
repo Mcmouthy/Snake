@@ -31,6 +31,9 @@ public class Fenetre extends JFrame {
         setTitle("Snake - appuyez sur espace pour commencer");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(700,700));
+        setResizable(false);
+        setLocationRelativeTo(null);
 
     }
 
@@ -49,9 +52,7 @@ public class Fenetre extends JFrame {
 
         setJMenuBar(menuBar);
         setContentPane(all);
-        setMinimumSize(new Dimension(800,800));
-        setResizable(false);
-        setLocationRelativeTo(null);
+        
     }
 
     public void initAttributs(){
