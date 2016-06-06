@@ -11,9 +11,6 @@ import java.util.*;
  * Created by PC-Dylan on 03/05/2016.
  */
 public class Model {
-    
-    public Grille jeu;
-    public Sst sst;
 
     public static final int VIDE=0;
     public static final int MUR=1;
@@ -37,7 +34,7 @@ public class Model {
     private static float temps; // temps de la partie en cours
     private static Random random;
     private static boolean record; // booleen qui indique si un record a ete battu
-    private static String[] tabScore;//tableau contenant des strings ayant pour valeur les scores
+    public static String[] tabScore;//tableau contenant des strings ayant pour valeur les scores
     private static String nom; // nom du joueur actuel
     private int[][] tabDir;
     private List<int[]> serpent;
@@ -71,12 +68,13 @@ public class Model {
         timeJEU=new int[3];
         enJeu=false;
         affichagedesmeilleurs="";
-        random=new Random();
+        random = new Random();
         grille=new int[taille_X][taille_Y];
         initGrille();
         initTimers();
         initScore();
         initAffichagemeilleures();
+
     }
 
     /*------------------les setters----------------------*/
@@ -110,8 +108,9 @@ public class Model {
     public void setEnJeu() {
        enJeu= !enJeu;
     }
-    
+
     public void setGrille(int i,int j,int nbre){grille[i][j]=nbre;}
+
 
     /*------------------les getters----------------------*/
 
@@ -151,11 +150,14 @@ public class Model {
         return serpent;
     }
 
-    public static int[][] getGrille() {
+    public static int[][] getCoordGrille() {
         return grille;
     }
+
     public String getAffichagedesmeilleurs(){return affichagedesmeilleurs;}
-    
+
+    public int getGrille(int i, int j){ return grille[i][j];}
+
     /*-----------------les calculs----------------------*/
 
     public void change_direction(int x, int y){
@@ -173,8 +175,7 @@ public class Model {
              for (int i=0;i<10;i++){
                  buf=record.readLine();
                  if (buf!=null) {
-                     strtab[i] = buf;
-                     tabScore[i]=strtab[i];
+                     tabScore[i]=buf;
                  }
 
              }
@@ -265,16 +266,10 @@ public class Model {
         serpent.set(0,new int[]{x,y});
     }
 
-
-
-
     /*-------------------------------------------------------------*/
     /*------------------------ Lancer jeux ------------------------*/
 
     public void gameStart(){
-        initGrille();
-        random = new Random();
-        random = new Random();
         setPosition_X();
         setPosition_Y();
     }
@@ -314,6 +309,7 @@ public class Model {
             affichagedesmeilleurs+=(i+1)+"-"+tabScore[i]+"\n";
         }
     }
+
     public void placeSnack(){
         int i=random.nextInt(taille_X-2)+1;
         int j=random.nextInt(taille_Y-2)+1;
@@ -331,6 +327,5 @@ public class Model {
     public void placeQueue(int x, int y) {
         grille[x][y]=QUEUE;
     }
-
 
 }
