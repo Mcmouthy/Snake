@@ -49,7 +49,7 @@ public class ControlSst implements KeyListener
     {
         if (model.getEnJeu()==true) {
             if (model.getPause()==false){
-                model.TimerSST.schedule(new TimerTask() {
+                model.timerSST.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         model.timeSST[0]++;
@@ -63,10 +63,10 @@ public class ControlSst implements KeyListener
                             model.timeSST[2]++;
                         }
 
-                        Sst.printTime.setText("" + model.timeSST[2] + ":" + model.timeSST[1]);/* rafraichir le label */
+                        Sst.printtime.setText("" + model.timeSST[2] + ":" + model.timeSST[1]);/* rafraichir le label */
                         if (model.getEnJeu()==false){
-                            model.TimerSST.cancel();
-                            model.TimerSST.purge();
+                            model.timerSST.cancel();
+                            model.timerSST.purge();
                         }
                     }
                 },0,1);
