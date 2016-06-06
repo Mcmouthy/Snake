@@ -3,6 +3,7 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import Model.*;
 
 /**
  * Created by rydkey on 03/05/16.
