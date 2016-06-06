@@ -40,6 +40,7 @@ public class Model {
     public int[] timeJEU;
     private boolean enJeu;
     private String affichagedesmeilleurs;
+    private int tmps;
 
     public Model(){ // constructeur qui initialise  tous les parametres a zero.
         position_X=0;
@@ -53,6 +54,8 @@ public class Model {
         pause =false;
         tabScore= new String[10];
         tabDir=new int[1][2];
+        tabDir[0][0]=-1;
+        tabDir[0][1]=0;
         nom="";
         serpent= new ArrayList<>();
         pos_Snack= new ArrayList<>();
@@ -117,7 +120,7 @@ public class Model {
     }
 
     public int getSize(){
-        return this.size;
+        return serpent.size();
     }
 
     public int getVitesse(){
@@ -132,8 +135,8 @@ public class Model {
         return enJeu;
     }
 
-    public List<int[]> getSerpent() {
-        return serpent;
+    public int[] getSerpent(int index) {
+        return serpent.get(index);
     }
 
     public static int[][] getCoordGrille() {
@@ -249,21 +252,19 @@ public class Model {
         pos_Snack.add(new int[]{x,y});
     }
 
-    public void mouvementSerpent(int x,int y){
+    public void mouvementSerpent(){
+        grille[serpent.get(0)[0]+tabDir[0][0]][serpent.get(0)[1]+tabDir[0][1]]=TETE;
+        grille[serpent.get(0)[0]][serpent.get(0)[1]]=CORPS;
+        grille[serpent.get(serpent.size()-2)[0]][serpent.get(serpent.size()-2)[1]]=QUEUE;
+        grille[serpent.get(serpent.size()-1)[0]][serpent.get(serpent.size()-1)[1]]=VIDE;
         for (int i=serpent.size()-1; i>0;i--){
             serpent.set(i,serpent.get(i-1));
         }
-        serpent.set(0,new int[]{x,y});
+        serpent.set(0,new int[]{serpent.get(0)[0]+tabDir[0][0],serpent.get(0)[1]+tabDir[0][1]});
     }
 
     /*-------------------------------------------------------------*/
     /*------------------------ Lancer jeux ------------------------*/
-
-    public void gameStart(){
-        setPosition_X();
-        setPosition_Y();
-    }
-
     /**/
     public void initGrille() {
         for (int i=0;i<taille_X;i++){

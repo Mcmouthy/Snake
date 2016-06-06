@@ -64,7 +64,7 @@ public class Fenetre extends JFrame {
         score = new JMenuItem("Score");
     }
 
-    public void setControlKey(KeyListener all) {
+    public void setControlJeu(KeyListener all) {
         addKeyListener(all);
     }
 
@@ -74,10 +74,6 @@ public class Fenetre extends JFrame {
 
     public void setControlMenuReset(ActionListener all){
         reset.addActionListener(all);
-    }
-
-    public void setControlSst (KeyListener all) {
-        addKeyListener(all);
     }
 
     public void afficheScore(){
