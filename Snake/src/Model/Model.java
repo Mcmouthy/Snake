@@ -82,11 +82,11 @@ public class Model {
     /*------------------les setters----------------------*/
 
     public void setPosition_X(){
-        position_X=randomx.nextInt((taille_X-1)+1);
+        position_X=random.nextInt((taille_X-1)+1);
     }
 
     public void setPosition_Y(){
-        position_Y=randomy.nextInt((taille_Y-1)+1);
+        position_Y=random.nextInt((taille_Y-1)+1);
     }
 
     public void setScore(int score){
@@ -273,8 +273,8 @@ public class Model {
 
     public void gameStart(){
         initGrille();
-        randomx = new Random();
-        randomy = new Random();
+        random = new Random();
+        random = new Random();
         setPosition_X();
         setPosition_Y();
     }
